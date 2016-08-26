@@ -36,4 +36,29 @@ public class GuitarSpec {
 		return topWood;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GuitarSpec other = (GuitarSpec) obj;
+		if (backWood != other.backWood)
+			return false;
+		if (builder != other.builder)
+			return false;
+		if (model == null) {
+			if (other.model != null)
+				return false;
+		} else if (!model.equals(other.model))
+			return false;
+		if (topWood != other.topWood)
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
+	}
+
 }
