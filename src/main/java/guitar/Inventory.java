@@ -26,7 +26,8 @@ public class Inventory {
 		return null;
 	}
 	
-	public Guitar search(Guitar searchGuitar) {
+	public List<Guitar> search(Guitar searchGuitar) {
+		List<Guitar> machingGuitars = new ArrayList<Guitar>();
 		for (Guitar guitar : guitars) {
 			// 일련번호는 유일한 값이니까 무시
 			// 가격은 유일한 값이니까 무시
@@ -42,9 +43,9 @@ public class Inventory {
 				continue;
 			if (searchGuitar.getTopWood() != guitar.getTopWood())
 				continue;
-			return guitar;
+			machingGuitars.add(guitar);
 		}
-		return null;
+		return machingGuitars;
 	}
 
 }

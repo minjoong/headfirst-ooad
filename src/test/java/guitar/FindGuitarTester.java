@@ -1,6 +1,9 @@
 package guitar;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +21,8 @@ public class FindGuitarTester {
 	@Test
 	public void test() {
 		Guitar whatErinLikes = new Guitar("", 0, Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
-		Guitar guitar = inventory.search(whatErinLikes);
-		assertEquals(inventory.getGuitar("V95693"), guitar);
+		List<Guitar> guitars = inventory.search(whatErinLikes);
+		assertThat(guitars, hasItems(inventory.getGuitar("V95693"), inventory.getGuitar("V9512")));
 	}
 
 	private void initializeInventory(Inventory inventory) {
