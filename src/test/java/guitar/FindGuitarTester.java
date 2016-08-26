@@ -20,7 +20,7 @@ public class FindGuitarTester {
 
 	@Test
 	public void test() {
-		Guitar whatErinLikes = new Guitar("", 0, Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
+		GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
 		List<Guitar> guitars = inventory.search(whatErinLikes);
 		assertThat(guitars, hasItems(inventory.getGuitar("V95693"), inventory.getGuitar("V9512")));
 	}
