@@ -19,8 +19,9 @@ public class DogDoorSimulator {
 	@Before
 	public void init() {
 		door = new DogDoor();
-		remote = new Remote(door);
+		initializeAllowedBarks();
 		recognizer = new BarkRecognizer(door);
+		remote = new Remote(door);
 		setupStream();
 	}
 	
@@ -65,8 +66,8 @@ public class DogDoorSimulator {
 	public void testBarkRecognizerSimulation() {
 		// 피도가 나가기 위해 짖는다.
 		// 소리 인식기가 피도가 짖는 소리를 인식한다.
-		recognizer.recognize("Woof"); // 소리 인식기가 문을 열라는 신호를 보낸다.
-		assertEquals(outContent.toString(), "BarkRecognizer: Heard a 'Woof'\nThe dog door opens.\n");
+		recognizer.recognize(new Bark("rowlf")); // 소리 인식기가 문을 열라는 신호를 보낸다.
+		assertEquals(outContent.toString(), "BarkRecognizer: Heard a 'rowlf'\nThe dog door opens.\n");
 		outContent.reset();
 		
 		try {
@@ -78,10 +79,16 @@ public class DogDoorSimulator {
 		assertEquals(outContent.toString(), "The dog door closes.\n");
 		outContent.reset();
 		
+		// 다른 강아지가 짖는다.
+		// 소리 인식기가 다른 강아지가 짖는 소리를 인식한다.
+		recognizer.recognize(new Bark("yip")); // 소리 인식기가 다른 강아지가 짖는 소리라는 메시지를 출력한다.
+		assertEquals(outContent.toString(), "BarkRecognizer: Heard a 'yip'\nThis dog is not allowed.\n");
+		outContent.reset();
+		
 		// 피도가 들어오기 위해 짖는다.
 		// 소리 인식기가 피도가 짖는 소리를 인식한다.
-		recognizer.recognize("Woof"); // 소리 인식기가 문을 열라는 신호를 보낸다.
-		assertEquals(outContent.toString(), "BarkRecognizer: Heard a 'Woof'\nThe dog door opens.\n");
+		recognizer.recognize(new Bark("rooowlf")); // 소리 인식기가 문을 열라는 신호를 보낸다.
+		assertEquals(outContent.toString(), "BarkRecognizer: Heard a 'rooowlf'\nThe dog door opens.\n");
 		outContent.reset();
 		
 		try {
@@ -95,6 +102,13 @@ public class DogDoorSimulator {
 	
 	private void setupStream() {
 		System.setOut(new PrintStream(outContent));
+	}
+	
+	private void initializeAllowedBarks() {
+		door.addAllowedBark(new Bark("rowlf"));
+		door.addAllowedBark(new Bark("rooowlf"));
+		door.addAllowedBark(new Bark("rawlf"));
+		door.addAllowedBark(new Bark("woof"));
 	}
 
 }

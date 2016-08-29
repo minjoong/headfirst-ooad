@@ -8,9 +8,15 @@ public class BarkRecognizer {
 		this.door = door;
 	}
 	
-	public void recognize(String bark) {
-		System.out.println("BarkRecognizer: Heard a '" + bark + "'");
-		door.open();
+	public void recognize(Bark bark) {
+		System.out.println("BarkRecognizer: Heard a '" + bark.getSound() + "'");
+		for (Bark allowedBark : door.getAllowedBarks()) {
+			if (allowedBark.equals(bark)) {
+				door.open();
+				return;
+			}
+		}
+		System.out.println("This dog is not allowed.");
 	}
 
 }
