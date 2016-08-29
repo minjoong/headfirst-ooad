@@ -33,16 +33,12 @@ public class DogDoorSimulator {
 		assertEquals(outContent.toString(), "Pressing the remote control button...\nThe dog door opens.\n");
 		
 		outContent.reset();
-		remote.pressButton();
-		assertEquals(outContent.toString(), "Pressing the remote control button...\nThe dog door closes.\n");
-		
-		outContent.reset();
-		remote.pressButton();
-		assertEquals(outContent.toString(), "Pressing the remote control button...\nThe dog door opens.\n");
-		
-		outContent.reset();
-		remote.pressButton();
-		assertEquals(outContent.toString(), "Pressing the remote control button...\nThe dog door closes.\n");
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		assertEquals(outContent.toString(), "The dog door closes.\n");
 	}
 	
 	private void setupStream() {
