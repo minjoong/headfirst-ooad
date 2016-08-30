@@ -1,39 +1,34 @@
 package instrument;
 
-public abstract class InstrumentSpec {
+import java.util.HashMap;
+import java.util.Map;
 
-	protected Builder builder;
-	protected String model;
-	protected Type type;
-	protected Wood backWood;
-	protected Wood topWood;
+public class InstrumentSpec {
 
-	public InstrumentSpec(Builder builder, String model, Type type, Wood backWood, Wood topWood) {
-		this.builder = builder;
-		this.model = model;
-		this.type = type;
-		this.backWood = backWood;
-		this.topWood = topWood;
+	private Map<String, Object> properties;
+
+	public InstrumentSpec(Map<String, Object> properties) {
+		if (properties == null) {
+			this.properties = new HashMap<>();
+		} else {
+			this.properties = new HashMap<>(properties);
+		}
 	}
 
-	public Builder getBuilder() {
-		return builder;
+	public Object getProperty(String propertyName) {
+		return properties.get(propertyName);
 	}
 
-	public String getModel() {
-		return model;
+	public Map<String, Object> getProperties() {
+		return properties;
 	}
 
-	public Type getType() {
-		return type;
-	}
-
-	public Wood getBackWood() {
-		return backWood;
-	}
-
-	public Wood getTopWood() {
-		return topWood;
+	public boolean matches(InstrumentSpec otherSpec) {
+		for (String propertyName : otherSpec.getProperties().keySet()) {
+			if (!properties.get(propertyName).equals(otherSpec.getProperty(propertyName)))
+				return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -42,21 +37,13 @@ public abstract class InstrumentSpec {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof InstrumentSpec))
 			return false;
 		InstrumentSpec other = (InstrumentSpec) obj;
-		if (backWood != other.backWood)
-			return false;
-		if (builder != other.builder)
-			return false;
-		if (model == null) {
-			if (other.model != null)
+		if (properties == null) {
+			if (other.properties != null)
 				return false;
-		} else if (!model.equals(other.model))
-			return false;
-		if (topWood != other.topWood)
-			return false;
-		if (type != other.type)
+		} else if (!properties.equals(other.properties))
 			return false;
 		return true;
 	}

@@ -12,12 +12,7 @@ public class Inventory {
 	}
 
 	public void addInstrument(String serialNumber, double price, InstrumentSpec spec) {
-		Instrument instrument = null;
-		if (spec instanceof GuitarSpec) {
-			instrument = new Guitar(serialNumber, price, (GuitarSpec) spec);
-		} else if (spec instanceof MandolinSpec) {
-			instrument = new Mandolin(serialNumber, price, (MandolinSpec) spec);
-		}
+		Instrument instrument = new Instrument(serialNumber, price, spec);
 		inventory.add(instrument);
 	}
 
@@ -29,27 +24,16 @@ public class Inventory {
 		}
 		return null;
 	}
-
-	public List<Guitar> search(GuitarSpec searchSpec) {
-		List<Guitar> machingGuitars = new ArrayList<Guitar>();
-		for (Instrument instrument : inventory) {
-			// 일련번호는 유일한 값이니까 무시
-			// 가격은 유일한 값이니까 무시
-			if (instrument.getSpec().equals(searchSpec))
-				machingGuitars.add((Guitar) instrument);
-		}
-		return machingGuitars;
-	}
 	
-	public List<Mandolin> search(Mandolin searchSpec) {
-		List<Mandolin> machingMandolins = new ArrayList<Mandolin>();
+	public List<Instrument> search(InstrumentSpec searchSpec) {
+		List<Instrument> machingInstruments = new ArrayList<Instrument>();
 		for (Instrument instrument : inventory) {
 			// 일련번호는 유일한 값이니까 무시
 			// 가격은 유일한 값이니까 무시
-			if (instrument.getSpec().equals(searchSpec))
-				machingMandolins.add((Mandolin) instrument);
+			if (instrument.getSpec().matches(searchSpec))
+				machingInstruments.add(instrument);
 		}
-		return machingMandolins;
+		return machingInstruments;
 	}
 
 }
