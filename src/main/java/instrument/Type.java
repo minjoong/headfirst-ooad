@@ -1,4 +1,4 @@
-package guitar;
+package instrument;
 
 public enum Type {
 
