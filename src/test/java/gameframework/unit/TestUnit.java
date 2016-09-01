@@ -48,22 +48,18 @@ public class TestUnit {
 
 	/**
 	 * Testing setting/getting a unit-specific property.
-	 * 
-	 * @throws IllegalAccessException
 	 */
 	@Test
-	public void testUnitSpecificProperty() throws IllegalAccessException {
+	public void testUnitSpecificProperty() {
 		unit.setProperty("hitPoints", 25);
 		assertEquals(25, unit.getProperty("hitPoints"));
 	}
 
 	/**
 	 * Testing changing an existing property's value.
-	 * 
-	 * @throws IllegalAccessException
 	 */
 	@Test
-	public void testChangeProperty() throws IllegalAccessException {
+	public void testChangeProperty() {
 		unit.setProperty("hitPoints", 25);
 		unit.setProperty("hitPoints", 15);
 		assertEquals(15, unit.getProperty("hitPoints"));
@@ -71,11 +67,9 @@ public class TestUnit {
 
 	/**
 	 * Testing getting a non-existent property's value.
-	 * 
-	 * @throws IllegalAccessException
 	 */
-	@Test(expected = IllegalAccessException.class)
-	public void testNonExistentProperty() throws IllegalAccessException {
+	@Test(expected = RuntimeException.class)
+	public void testNonExistentProperty() {
 		unit.getProperty("strength");
 	}
 

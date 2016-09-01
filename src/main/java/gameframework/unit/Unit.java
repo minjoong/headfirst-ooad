@@ -55,13 +55,13 @@ public class Unit {
 		properties.put(property, value);
 	}
 
-	public Object getProperty(String property) throws IllegalAccessException {
+	public Object getProperty(String property) {
 		if (properties == null) {
-			throw new IllegalAccessException("What are you doing? No properties!");
+			throw new RuntimeException("No properties for this Unit.");
 		}
 		Object value = properties.get(property);
 		if (value == null) {
-			throw new IllegalAccessException("You're screwing up! No property value.");
+			throw new RuntimeException("Request for non-exestent property.");
 		} else {
 			return value;
 		}
