@@ -55,11 +55,16 @@ public class Unit {
 		properties.put(property, value);
 	}
 
-	public Object getProperty(String property) {
+	public Object getProperty(String property) throws IllegalAccessException {
 		if (properties == null) {
-			return null;
+			throw new IllegalAccessException("What are you doing? No properties!");
 		}
-		return properties.get(property);
+		Object value = properties.get(property);
+		if (value == null) {
+			throw new IllegalAccessException("You're screwing up! No property value.");
+		} else {
+			return value;
+		}
 	}
 
 }
